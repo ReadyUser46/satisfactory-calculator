@@ -1,4 +1,4 @@
-package dev.mrrobot;
+package dev.mrrobot.persistance;
 
 import lombok.Data;
 import lombok.SneakyThrows;
