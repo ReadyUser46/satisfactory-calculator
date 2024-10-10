@@ -46,11 +46,11 @@ public class MaterialBuilder {
     }
 
     public void calculateQuantities(List<Recipe> recipes, double quantityneed) {
-
+/*
         recipes.stream().findFirst().orElse(null).
 
 
-        (quantityneed / output.getRecipeQuantity()) * input.getRecipeQuantity()
+        (quantityneed / output.getRecipeQuantity()) * input.getRecipeQuantity()*/
 
     }
 
