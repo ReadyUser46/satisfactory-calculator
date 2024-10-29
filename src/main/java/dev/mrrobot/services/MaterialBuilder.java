@@ -22,7 +22,7 @@ public class MaterialBuilder {
     }
 
     // obtener los inputs necesarios para el item objetivo
-    public List<Recipe> getRequiredRecipes(ItemEnum targetItem) {
+    public List<Recipe> getRequiredBuildingRecipes(ItemEnum targetItem) {
         List<Recipe> requiredInputs = new LinkedList<>();
         gatherRecipes(targetItem, requiredInputs);
         return requiredInputs;
@@ -45,7 +45,15 @@ public class MaterialBuilder {
         return recipe.getOutputs().stream().filter(output -> output.getItem().equals(itemEnum)).findFirst().orElse(null);
     }
 
-    public void calculateQuantities(List<Recipe> recipes, double quantityneed) {
+    public void calculateQuantities(List<Recipe> recipes, double targetQuantity, ItemEnum targetItem) {
+
+        Output targetOutput = selectOutput(recipes.getFirst(), targetItem);
+
+        double quantity = targetOutput.getUserQuantity();
+
+        //quantity / targetOutput.getRecipeQuantity()
+
+
 /*
         recipes.stream().findFirst().orElse(null).
 
