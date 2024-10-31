@@ -32,7 +32,7 @@ public class MainRunner {
         outputChosen.ifPresent(output -> output.setUserQuantity(targetQuantity));
 
         //calculate all quantities
-        materialBuilder.calculateQuantities(requiredRecipes, targetQuantity, targetItem);
+        materialBuilder.calculateQuantities(targetQuantity, targetItem);
 
         //console output
         System.out.println("---------------------------------");
@@ -43,7 +43,8 @@ public class MainRunner {
         requiredRecipes.forEach(recipe -> {
             counter.getAndIncrement();
             System.out.printf("%nRecipe %s => '%s' > building: %s > Inputs:%n", counter, recipe.getItemEnum().getName().toUpperCase(), recipe.getProducer());
-            recipe.getInputs().forEach(input -> System.out.println("    -> " + input.getItem().getName()));
+            double quantity = materialBuilder.selectOutput(recipe, recipe.getItemEnum()).getUserQuantity();
+            recipe.getInputs().forEach(input -> System.out.printf("    -> '%s' => '%s'%n", input.getItem().getName(), quantity));
         });
 
     }

@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Optional;
 
 @Data
 @NoArgsConstructor
@@ -45,11 +46,25 @@ public class MaterialBuilder {
         return recipe.getOutputs().stream().filter(output -> output.getItem().equals(itemEnum)).findFirst().orElse(null);
     }
 
-    public void calculateQuantities(List<Recipe> recipes, double targetQuantity, ItemEnum targetItem) {
+    public void calculateQuantities(double quantity, ItemEnum item) {
 
-        Output targetOutput = selectOutput(recipes.getFirst(), targetItem);
+        Recipe recipe = findRecipeByItem(item);
 
-        double quantity = targetOutput.getUserQuantity();
+        if (recipe == null) {
+            return;
+        }
+
+        Output targetOutput = selectOutput(recipe, item);
+        double ratio = quantity / targetOutput.getRecipeQuantity();
+
+        recipe.getInputs().forEach(input -> {
+
+            double requiredAmount = input.getRecipeQuantity() * ratio;
+            Optional<Output> first = recipe.getOutputs().stream().filter(output -> output.getItem().equals(item)).findFirst();
+            first.ifPresent(output -> output.setUserQuantity(requiredAmount));
+            calculateQuantities(requiredAmount, input.getItem());
+        });
+
 
         //quantity / targetOutput.getRecipeQuantity()
 
@@ -61,6 +76,5 @@ public class MaterialBuilder {
         (quantityneed / output.getRecipeQuantity()) * input.getRecipeQuantity()*/
 
     }
-
 
 }
