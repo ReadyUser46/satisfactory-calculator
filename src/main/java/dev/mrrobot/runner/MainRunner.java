@@ -14,7 +14,7 @@ public class MainRunner {
 
     public static void main(String[] args) {
 
-        ItemEnum targetItem = ItemEnum.VIGA_ACERO;
+        ItemEnum targetItem = ItemEnum.ARMAZON_MODULAR_PESADO;
         double targetQuantity = 200;
 
         //services
